@@ -201,7 +201,94 @@ export default function ArchitectureHero() {
         </div>
       </section>
 
-      <div id="practice" className="h-px" />
+      {/* Practice */}
+      <section
+        id="practice"
+        className="w-full border-t border-[#2c2925]/10 px-5 py-20 sm:px-8 md:px-12 md:py-28 lg:px-16"
+      >
+        <div className="mx-auto max-w-[1440px]">
+          <div className="grid gap-10 md:grid-cols-[1fr_2fr] md:gap-16">
+            <div className="text-[11px] font-medium tracking-[0.18em] text-[#2c2925]/45">
+              THE PRACTICE
+            </div>
+
+            <div>
+              <motion.h2
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.7, ease }}
+                className="max-w-4xl text-[34px] leading-[1.08] tracking-[-0.035em] sm:text-[44px] md:text-[56px]"
+              >
+                We make spaces that become quieter with time.
+              </motion.h2>
+
+              <motion.p
+                initial={{ opacity: 0, y: 18 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.7, delay: 0.08, ease }}
+                className="mt-8 max-w-2xl text-[15px] leading-[1.75] text-[#2c2925]/60 md:text-[16px]"
+              >
+                Our work begins with the conditions of a place — its light,
+                material, landscape and the people who will inhabit it. We look
+                for the simplest architectural response that can carry those
+                conditions forward.
+              </motion.p>
+            </div>
+          </div>
+
+          <div className="mt-20 border-t border-[#2c2925]/10 md:mt-28">
+            <div className="grid md:grid-cols-3">
+              {[
+                ["01", "Place", "Every project starts with its setting, rather than a predetermined form."],
+                ["02", "Material", "We work with materials for their physical character, aging and relationship to light."],
+                ["03", "Life", "Architecture is measured by what happens inside it: movement, gathering, solitude and time."],
+              ].map(([number, title, body], index) => (
+                <motion.div
+                  key={number}
+                  initial={{ opacity: 0, y: 18 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.2 }}
+                  transition={{ duration: 0.6, delay: index * 0.08, ease }}
+                  className="border-b border-[#2c2925]/10 py-8 md:border-b-0 md:border-r md:px-8 md:py-10 first:md:pl-0 last:md:border-r-0 last:md:pr-0"
+                >
+                  <p className="text-[11px] tracking-[0.16em] text-[#2c2925]/40">{number}</p>
+                  <h3 className="mt-10 text-[21px] font-semibold tracking-tight">{title}</h3>
+                  <p className="mt-3 max-w-sm text-[13px] leading-[1.7] text-[#2c2925]/55">{body}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+
+          <div className="mt-20 border-t border-[#2c2925]/10 md:mt-28">
+            <div className="grid md:grid-cols-2">
+              <motion.div
+                initial={{ opacity: 0, x: -18 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.7, ease }}
+                className="border-b border-[#2c2925]/10 py-8 md:border-b-0 md:border-r md:py-10 md:pr-12"
+              >
+                <p className="text-[11px] font-medium tracking-[0.18em] text-[#2c2925]/40">OSLO</p>
+                <p className="mt-5 text-[20px] tracking-tight">Residential · Cultural · Nordic landscapes</p>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, x: 18 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.7, delay: 0.08, ease }}
+                className="py-8 md:py-10 md:pl-12"
+              >
+                <p className="text-[11px] font-medium tracking-[0.18em] text-[#2c2925]/40">LISBON</p>
+                <p className="mt-5 text-[20px] tracking-tight">Residential · Adaptive reuse · Mediterranean contexts</p>
+              </motion.div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <div id="journal" className="h-px" />
       <div id="contact" className="h-px" />
     </main>
