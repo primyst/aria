@@ -4,8 +4,9 @@ import { motion } from "framer-motion";
 
 /**
  * /fashion — hero section
- * Floating white card on a blush background, real editorial photo,
- * pill nav/CTA, small badge overlay. Framer Motion entrance.
+ * Distinct layout from /architecture: stacked feature cards on the left,
+ * photo bleeding to the edge on the right, floating circular badge
+ * overlapping the corner instead of a bottom info bar.
  */
 
 const IMAGE_URL =
@@ -13,44 +14,45 @@ const IMAGE_URL =
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
+const cards = [
+  { label: "Silhouette", value: "One shape, nine ways" },
+  { label: "Fabric", value: "Raw linen & silk" },
+  { label: "Studio", value: "Shot in Almería" },
+];
+
 export default function FashionHero() {
   return (
-    <section className="flex min-h-screen w-full items-center justify-center bg-[#e7c9b8] p-4 md:p-10">
+    <section className="flex min-h-screen w-full items-center justify-center bg-[#161412] p-4 md:p-10">
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, ease }}
-        className="relative w-full max-w-6xl overflow-hidden rounded-[28px] bg-white shadow-2xl"
+        className="w-full max-w-6xl overflow-hidden rounded-[28px] bg-[#f4efe9] shadow-2xl"
       >
         {/* Nav */}
         <div className="flex items-center justify-between px-6 pt-6 md:px-10 md:pt-8">
-          <div className="flex items-center gap-2">
-            <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#161412] text-[12px] font-semibold text-white">
-              M
-            </span>
-            <span className="text-[15px] font-semibold text-[#161412]">
-              Meridian
-            </span>
-          </div>
-          <div className="hidden gap-8 text-[14px] text-[#161412]/60 md:flex">
+          <span className="text-[15px] font-semibold tracking-tight text-[#161412]">
+            Meridian
+          </span>
+          <div className="hidden gap-8 text-[13px] text-[#161412]/55 md:flex">
             <span>Collections</span>
             <span>Atelier</span>
             <span>Stockists</span>
           </div>
-          <button className="rounded-full bg-[#161412] px-5 py-2 text-[13px] font-medium text-white transition hover:opacity-90">
-            Shop the edit
+          <button className="rounded-full border border-[#161412] px-5 py-2 text-[13px] font-medium text-[#161412] transition hover:bg-[#161412] hover:text-white">
+            Sign up
           </button>
         </div>
 
-        {/* Body */}
-        <div className="grid grid-cols-1 items-center gap-8 px-6 py-10 md:grid-cols-2 md:gap-6 md:px-10 md:py-14">
-          {/* Left: copy */}
-          <div>
+        {/* Body: asymmetric grid, cards stacked left, image right */}
+        <div className="grid grid-cols-1 gap-6 px-6 py-10 md:grid-cols-[1fr_1.1fr] md:gap-8 md:px-10 md:py-14">
+          {/* Left column */}
+          <div className="flex flex-col justify-between">
             <motion.h1
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.15, ease }}
-              className="text-[38px] font-semibold leading-[1.08] tracking-tight text-[#161412] md:text-[46px]"
+              className="text-[34px] font-semibold leading-[1.1] tracking-tight text-[#161412] md:text-[42px]"
             >
               Nothing still
               <br />
@@ -61,59 +63,49 @@ export default function FashionHero() {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.28, ease }}
-              className="mt-5 max-w-md text-[15px] leading-relaxed text-[#161412]/60"
+              className="mt-4 max-w-sm text-[14px] leading-relaxed text-[#161412]/60"
             >
-              The Resort collection, shot in Almería. Nine looks built around
-              one silhouette, made to move before they're seen.
+              The Resort collection, made to move before it's even seen.
             </motion.p>
 
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.4, ease }}
-              className="mt-7 flex items-center gap-4"
-            >
-              <button className="rounded-full bg-[#161412] px-6 py-3 text-[14px] font-medium text-white transition hover:opacity-90">
-                View the edit
-              </button>
-              <button className="flex items-center gap-2 text-[14px] font-medium text-[#161412]">
-                <span className="flex h-8 w-8 items-center justify-center rounded-full border border-[#161412]/20">
-                  ↗
-                </span>
-                Behind the shoot
-              </button>
-            </motion.div>
+            {/* Stacked feature cards instead of a stat row */}
+            <div className="mt-8 flex flex-col gap-3">
+              {cards.map((c, i) => (
+                <motion.div
+                  key={c.label}
+                  initial={{ opacity: 0, x: -16 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.6, delay: 0.4 + i * 0.1, ease }}
+                  className="flex items-center justify-between rounded-2xl bg-white px-5 py-4 shadow-sm"
+                >
+                  <span className="text-[12px] uppercase tracking-wide text-[#161412]/45">
+                    {c.label}
+                  </span>
+                  <span className="text-[13px] font-medium text-[#161412]">
+                    {c.value}
+                  </span>
+                </motion.div>
+              ))}
+            </div>
 
-            {/* Stat badges */}
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
+            <motion.button
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.55, ease }}
-              className="mt-10 flex gap-8 border-t border-[#161412]/10 pt-6"
+              transition={{ duration: 0.6, delay: 0.75, ease }}
+              className="mt-8 w-fit rounded-full bg-[#161412] px-6 py-3 text-[14px] font-medium text-white transition hover:opacity-90"
             >
-              <div>
-                <p className="text-[20px] font-semibold text-[#161412]">9</p>
-                <p className="text-[12px] text-[#161412]/50">Looks in the edit</p>
-              </div>
-              <div>
-                <p className="text-[20px] font-semibold text-[#161412]">1</p>
-                <p className="text-[12px] text-[#161412]/50">Silhouette, reworked</p>
-              </div>
-              <div>
-                <p className="text-[20px] font-semibold text-[#161412]">07</p>
-                <p className="text-[12px] text-[#161412]/50">Season number</p>
-              </div>
-            </motion.div>
+              View the edit
+            </motion.button>
           </div>
 
-          {/* Right: image with floating detail card */}
+          {/* Right: image bleeding to the edge, badge overlapping the corner */}
           <motion.div
             initial={{ opacity: 0, scale: 0.96 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.2, ease }}
             className="relative"
           >
-            <div className="aspect-[4/5] w-full overflow-hidden rounded-[20px]">
+            <div className="h-full min-h-[420px] w-full overflow-hidden rounded-[20px]">
               <img
                 src={IMAGE_URL}
                 alt="Editorial fashion portrait"
@@ -121,21 +113,26 @@ export default function FashionHero() {
               />
             </div>
 
+            {/* Circular badge overlapping top-left corner, not a bottom bar */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8, rotate: -8 }}
+              animate={{ opacity: 1, scale: 1, rotate: -8 }}
+              transition={{ duration: 0.6, delay: 0.6, ease }}
+              className="absolute -left-5 -top-5 flex h-24 w-24 flex-col items-center justify-center rounded-full bg-[#161412] text-center text-white shadow-lg"
+            >
+              <span className="text-[10px] uppercase tracking-wide text-white/60">
+                Resort
+              </span>
+              <span className="text-[15px] font-semibold">No. 07</span>
+            </motion.div>
+
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.6, ease }}
-              className="absolute bottom-4 left-4 right-4 flex items-center justify-between rounded-2xl bg-white/95 px-4 py-3 shadow-lg backdrop-blur"
+              transition={{ duration: 0.6, delay: 0.7, ease }}
+              className="absolute bottom-4 right-4 rounded-full bg-white/95 px-4 py-2 text-[12px] font-medium text-[#161412] shadow-md backdrop-blur"
             >
-              <div>
-                <p className="text-[13px] font-semibold text-[#161412]">
-                  Look 03 — Almería
-                </p>
-                <p className="text-[12px] text-[#161412]/50">Resort 2027</p>
-              </div>
-              <span className="rounded-full bg-[#161412] px-3 py-1 text-[11px] font-medium text-white">
-                No. 07
-              </span>
+              Look 03 of 09
             </motion.div>
           </motion.div>
         </div>
